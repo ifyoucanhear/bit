@@ -200,7 +200,7 @@
                     esta é a página sobre
                 </div>
 
-                <div class="page pageAccount hidden">
+                <div class="page pageLogin hidden">
                     <div class="register">
                         registrar
 
@@ -215,6 +215,10 @@
                         <input type="text" placeholder="email">
                         <input type="text" placeholder="password">
                     </div>
+                </div>
+
+                <div class="page pageAccount hidden">
+                    página da conta
                 </div>
             </div>
 
@@ -235,13 +239,17 @@
     <!-- adiciona sdks para produtos do firebase que você quer usar https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="/__/firebase/7.14.3/firebase-analytics.js"></script>
     <script src="/__/firebase/7.14.3/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.2/firebase-firestore.js"></script>
 
     <!-- inicializar o firebase -->
     <script src="/__/firebase/init.js"></script>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     
+    <script src="js/db.js"></script>
+    <script src="js/commandline.js"></script>
     <script src="js/words.js"></script>
     <script src="js/script.js"></script>
     <script src="js/account.js"></script>
