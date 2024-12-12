@@ -13,6 +13,8 @@ let missedChars = 0;
 let punctuationMode = true;
 let wpmHistory = [];
 
+let quickTabMode = true;
+
 let customText = "the quick brown fox jumps over the lazy dog";
 
 function test() {
@@ -182,6 +184,8 @@ function showWords() {
     $("#words").empty();
 
     if (testMode == "words" || testMode == "custom") {
+        $("#words").css("height", "auto");
+
         for (let i = 0; i < wordsList.length; i++) {
             let w = "<div class='word'>";
 
@@ -294,20 +298,41 @@ function updateCaretPosition() {
 
     let currentLetter = $($("#words .word.active letter")[currentLetterIndex]);
     let currentLetterPos = currentLetter.position();
-
     let letterHeight = currentLetter.height();
 
+    let newTop = 0;
+    let newLeft = 0;
+
     if (inputLen == 0) {
-        caret.css({
-            top: currentLetterPos.top - letterHeight / 4,
-            left: currentLetterPos.left - caret.width() / 2
-        });
+        // caret.css({
+        //     top: currentLetterPos.top - letterHeight / 4,
+        //     left: currentLetterPos.left - caret.width() / 2
+        // });
+
+        newLeft = currentLetterPos.left - caret.width() / 2;
     } else {
-        caret.css({
-            top: currentLetterPos.top - letterHeight / 4,
-            left: currentLetterPos.left + currentLetter.width() - caret.width() / 2
-        });
+        // caret.css({
+        //     top: currentLetterPos.top - letterHeight / 4,
+        //     left: currentLetterPos.left + currentLetter.width() - caret.width() / 2
+        // });
+
+        newLeft = currentLetterPos.left + currentLetter.width() - caret.width() / 2;
     }
+
+    let duration = 0;
+
+    if (true) {
+        duration = 100;
+    }
+
+    if (caret.position().top != newTop) {
+        duration = 0;
+    }
+
+    caret.stop(true, true).animate({
+        top: newTop,
+        left: newLeft
+    }, duration)
 }
 
 function calculateStats() {
@@ -499,6 +524,10 @@ var wpmHistoryChart = new Chart(ctx, {
     options: {
         legend: {
             display: false,
+
+            labels: {
+                defaultFontFamily: "Roboto Mono"
+            }
         },
 
         responsive: true,
@@ -517,6 +546,10 @@ var wpmHistoryChart = new Chart(ctx, {
         scales: {
             xAxes: [
                 {
+                    ticks: {
+                        fontFamily: "Roboto Mono"
+                    },
+
                     display: true,
 
                     scaleLabel: {
@@ -560,9 +593,9 @@ function showResult2() {
     infoText = testMode;
 
     if (testMode == "time") {
-        infoText += " "+timeConfig
+        infoText += " " + timeConfig
     } else if (testMode == "words") {
-        infoText += " "+wordsConfig
+        infoText += " " + wordsConfig
     }
 
     if (punctuationMode) {
@@ -578,8 +611,8 @@ function showResult2() {
 
     let labels = [];
 
-    for (let i = 1; i <= wpmHistory.length; i++){
-        labels.push(i);
+    for (let i = 1; i <= wpmHistory.length; i++) {
+        labels.push(i.toString());
     }
 
     wpmHistoryChart.data.labels = labels;
@@ -611,6 +644,8 @@ function restartTest() {
 
     setFocus(false);
 
+    hideCaret();
+
     if ($("#words").hasClass("hidden"))
         fadetime = 125;
 
@@ -620,7 +655,7 @@ function restartTest() {
         opacity: 0
     }, 125, () => {
         initWords();
-          
+
         $("#result").addClass('hidden');
         $("#words").css('opacity', 0).removeClass('hidden');
 
@@ -628,40 +663,35 @@ function restartTest() {
             opacity: 1
         }, 125, () => {
             $("#restartTestButton").css('opacity', 1);
-
             focusWords();
-        
             // $("#top .result")
-            //     .css("opacity", "1")
-            //     .css("transition", "none")
-            //     .stop(true, true)
-            //     .animate({ opacity: 0 }, 250, () => {
-            //         $("#top .result").addClass("hidden").css("transition", "0.25s");
-            //
-            //         if (testActive || resultShown) {
-            //             $("#top .config")
-            //                 .css("opacity", "0")
-            //                 .removeClass("hidden")
-            //                 .css("transition", "none")
-            //                 .stop(true, true)
-            //                 .animate({ opacity: 1 }, 250, () => {
-            //                     $("#top .config").css("transition", "0.25s");
-            //                 });
-            //         }
-            // });
-            
+            //   .css("opacity", "1")
+            //   .css("transition", "none")
+            //   .stop(true, true)
+            //   .animate({ opacity: 0 }, 250, () => {
+            //     $("#top .result").addClass("hidden").css("transition", "0.25s");
+            //     if (testActive || resultShown) {
+            //       $("#top .config")
+            //         .css("opacity", "0")
+            //         .removeClass("hidden")
+            //         .css("transition", "none")
+            //         .stop(true, true)
+            //         .animate({ opacity: 1 }, 250, () => {
+            //           $("#top .config").css("transition", "0.25s");
+            //         });
+            //     }
+            //   });
+
             testActive = false;
             wpmHistory = [];
-
             hideTimer();
-
             setTimeout(function() {
                 $("#timer")
-                    .css("transition", "none")
-                    .css("width", "0vw")
-                    .animate({ top: 0 }, 0, () => {
-                        $("#timer").css("transition", "1s linear");
-                    });
+                .css("transition", "none")
+                .css("width", "0vw")
+                .animate({ top: 0 }, 0, () => {
+                    $("#timer").css("transition", "1s linear");
+                });
             }, 250);
 
             clearInterval(timer);
@@ -670,7 +700,7 @@ function restartTest() {
             time = 0;
 
             focusWords();
-        
+
             // let oldHeight = $("#words").height();
             // let newHeight = $("#words")
             //   .css("height", "fit-content")
@@ -766,11 +796,11 @@ $(document).ready(() => {
             updateCaretPosition();
         });
     
-    togglePunctuation();
-
-    changeWordCount(10);
-
     restartTest();
+
+    if (quickTabMode) {
+        $("#restartTestButton").remove();
+    }
 });
 
 $(document).on("click", "#top .config .wordCount .button", (e) => {
@@ -1006,6 +1036,14 @@ $(document).keydown((event) => {
             showCommandLine();
         } else {
             hideCommandLine();
+        }
+    }
+
+    if (quickTabMode) {
+        if (event["keyCode"] == 9) {
+            event.preventDefault();
+
+            restartTest();
         }
     }
 

@@ -205,12 +205,15 @@ a:hover {
     width: 2px;
     height: 1.5rem;
     background: var(--caret-color);
+    
     animation-name: caretFlash;
     /* animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955); */
     animation-iteration-count: infinite;
     animation-duration: 1s;
+    
     position: absolute;
-    transition: 0.05s;
+    
+    // transition: 0.05s;
 }
 
 @keyframes caretFlash {
@@ -608,9 +611,11 @@ key {
 }
 
 .word letter {
-    /* transition: 0.1s; */
+    transition: .1s;
+
     height: 1rem;
     line-height: 1rem;
+
     /* margin: 0 1px; */
 }
 
