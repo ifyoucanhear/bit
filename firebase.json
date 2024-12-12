@@ -12,14 +12,22 @@
             "**/node_modules/**"
         ],
 
+        "redirects": [
+            {
+                "source": "/",
+                "destination": "/app",
+                "type": 301
+            }
+        ],
+
         "rewrites": [
             {
-                "source": "**",
-                "destination": "/index.html"
-            }, {
-                "source": "!/@(js|css)/**",
-                "destination": "/index.html"
+                "source": "/**",
+                "destination": "/app"
             }
-        ]
+        ],
+
+        "cleanUrls": true,
+        "trailingSlash": false
     }
 }
