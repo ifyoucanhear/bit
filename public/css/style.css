@@ -198,7 +198,7 @@ a:hover {
 #liveWpm {
     font-size: 10rem;
     color: black;
-    opacity: 0.25;
+    opacity: 0;
     width: 100%;
     text-align: center;
     z-index: -1;
@@ -610,14 +610,16 @@ key {
     display: -ms-grid;
     display: grid;
 
-    gap: 1rem;
+    gap: .5rem;
 
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
     grid-template-areas: "wpm acc" "wpm key" "info info";
 }
 
@@ -667,6 +669,8 @@ key {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+
+    margin-top: -.5rem;
 }
 
 #result .stats .wpm .top .crown {

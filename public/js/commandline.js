@@ -25,6 +25,21 @@ let commands = {
                 toggleQuickTabMode();
             }
         }, {
+            id: "toggleShowLiveWpm",
+            display: "alternar exibição de wpm ao vivo",
+
+            exec: () => {
+                config.showLiveWpm = !config.showLiveWpm;
+                saveConfigToCookie();
+            }
+        }, {
+            id: "toggleKeyTips",
+            display: "alternar dicas de atalho de teclado",
+
+            exec: () => {
+                toggleKeyTips();
+            }
+        }, {
             id: "changeMode",
             display: "alterar modo...",
 

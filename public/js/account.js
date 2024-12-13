@@ -274,13 +274,19 @@ function refreshAccountPage() {
         let testCount = data.length;
 
         data.forEach(result => {
+            let withpunc = '';
+
+            if (result.punctuation) {
+                withpunc = ', com pontuação';
+            }
+
             $(".pageAccount .history table tbody").prepend(`
             <tr>
             <td>${result.wpm}</td>
             <td>${result.acc}%</td>
             <td>${result.correctChars}</td>
             <td>${result.incorrectChars}</td>
-            <td>${result.mode} ${result.mode2}</td>
+            <td>${result.mode} ${result.mode2}${withpunc}</td>
             <td>${moment(result.timestamp).format('DD MMM YYYY HH:mm')}</td>
             </tr>`)
 
@@ -325,8 +331,10 @@ function refreshAccountPage() {
             }
 
             if (result.wpm > topWpm) {
+                let puncstring = result.punctuation ? ",<br>com pontuação" : "";
+
                 topWpm = result.wpm;
-                topMode = result.mode + " " + result.mode2;
+                topMode = result.mode + " " + result.mode2 + puncstring;
             }
         })
 
@@ -346,7 +354,7 @@ function refreshAccountPage() {
         resultHistoryChart.update({ duration: 0 });
 
         $(".pageAccount .highestWpm .val").text(topWpm);
-        $(".pageAccount .highestWpm .mode").text(topMode);
+        $(".pageAccount .highestWpm .mode").html(topMode);
         $(".pageAccount .testsTaken .val").text(testCount);
 
         let favMode = testModes.words10;

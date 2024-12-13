@@ -183,7 +183,7 @@ a:hover {
     // color: var(--sub-color);
     font-size: 10rem;
     color: black;
-    opacity: 0.25;
+    opacity: 0;
     width: 100%;
     text-align: center;
     // text-align: right;
@@ -499,7 +499,7 @@ key {
     .stats {
         display: grid;
 
-        gap: 1rem;
+        gap: .5rem;
 
         justify-content: center;
         align-items: center;
@@ -549,6 +549,8 @@ key {
                 line-height: 3rem;
 
                 display: flex;
+
+                margin-top: -.5rem;
 
                 .crown {
                     font-size: .7rem;
