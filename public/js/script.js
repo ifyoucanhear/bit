@@ -545,14 +545,14 @@ var wpmOverTimeChart = new Chart(ctx, {
                 data: [],
 
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
+                    'rgba(255, 255, 255, 0.25)'
                 ],
 
                 borderColor: [
-                    'rgba(255, 99, 132, 1)'
+                    'rgba(255, 255, 255, 1)'
                 ],
 
-                borderWidth: 1
+                borderWidth: 2
             }
         ]
     },
@@ -640,7 +640,7 @@ function showResult2() {
                 $("#result .stats .wpm .top").append('<div class="crown"><i class="fas fa-crown"></i></div>');
             }
 
-            db_testCompleted(stats.wpm, stats.correctChars, stats.incorrectChars, stats.acc, config.mode, mode2);
+            db_testCompleted(stats.wpm, stats.correctChars, stats.incorrectChars, stats.acc, config.mode, mode2, config.punctuation);
         })
     } else {
         alert('test invalid');
