@@ -35,7 +35,7 @@ async function db_getUserResults() {
 
     let ret = [];
 
-    await db.collection('results').where('uid', '==', user.uid).get().then(data => {
+    await db.collection('results').orderBy('timestamp').where('uid', '==', user.uid).get().then(data => {
         data.docs.forEach(doc => {
             ret.push(doc.data());
         })
